@@ -1,0 +1,161 @@
+#!/usr/local/cpanel/3rdparty/bin/perl
+# cpanel - ea-podman-local-dir-setup                 Copyright 2022 cPanel, Inc.
+#                                                           All rights Reserved.
+# copyright@cpanel.net                                         http://cpanel.net
+# This code is subject to the cPanel license. Unauthorized copying is prohibited
+
+use strict;
+use warnings;
+
+package scripts::ea_podman_local_dir_setup;
+
+use File::Path::Tiny ();    # Path::Tiny’s version is overly complicated
+use Path::Tiny 'path';
+use XML::LibXML ();
+use Cwd         ();
+
+run(@ARGV) if !caller;
+
+sub run {
+    my ( $host_path, @ports ) = @_;
+
+    die "Must have 2 ports ($host_path) :" . @ports . ":" if @ports != 2;
+
+    return add( $host_path, @ports );
+}
+
+################
+#### commands ##
+################
+
+sub add {
+    my ( $host_path, $http_port, $ajp_port ) = @_;
+
+    my ( $user, $homedir ) = ( getpwuid($>) )[ 0, 7 ];
+
+    _bail("$host_path appears to have setup already; aborting so we don’t break anything") if -d $host_path && !_tomcat101_dir_is_empty_or_apps_only($host_path);
+
+    print "Adding a tomcat 10.0 instance for “$user” …\n";
+
+    my $curdir = Cwd::cwd();
+
+    {
+        my $orig_umask = umask(0027);
+
+        mkdir $host_path;    # it may exist so don’t check it’s RV
+        die "Could not create directory “$host_path”" if !-d $host_path;
+        chdir $host_path or die "Could not change into “$host_path”: $!\n";
+
+        for my $dir (qw(conf bin logs run temp webapps/ROOT work/Catalina/localhost/ROOT)) {
+            File::Path::Tiny::mk($dir) or die "Could not create directory “$dir”: $!\n";
+        }
+
+        system("cp -r /opt/cpanel/ea-tomcat101/user-conf/* conf/");
+        system("chmod -R 640 conf/*");
+
+        my $dom = XML::LibXML->load_xml( location => "conf/server.xml", load_ext_dtd => 0, ext_ent_handler => sub { } );
+        $dom->findnodes('//Server[@shutdown="SHUTDOWN"]')->shift()->setAttribute( port => -1 );    # disable the shutdown port
+
+        my $ajp_connector_exists = 0;
+        for my $conn ( $dom->findnodes("//Server/Service/Connector") ) {
+
+            # hide version exposure
+            # Could set `server` in addition to xpoweredBy but:
+            #    1. it is a generic value for tomcat 4.1-10.0 so all an attacker can gelan is that it is tomcat
+            #    2. if we set it to something else it will be a known value and they will be able to
+            #       determine not only that its tomcat but also the version
+            $conn->setAttribute( xpoweredBy => "false" );
+
+            # set the ports to the user’s ports
+            if ( $conn->getAttribute('protocol') eq 'HTTP/1.1' ) {
+                $conn->removeAttribute('redirectPort');
+            }
+            elsif ( $conn->getAttribute('protocol') eq 'AJP/1.3' ) {
+                $conn->setAttribute( port => 8009 );
+                $conn->removeAttribute('redirectPort');
+                $conn->setAttribute( secretRequired => "false" );
+
+                # don’t listen on just 127.0.0.1 or you can’t do AJP proxy
+                # this is normally a undesirable but since its being done in a podman container its ok
+                $conn->setAttribute( address => "0.0.0.0" );
+
+                $ajp_connector_exists = 1;
+            }
+        }
+
+        if ( !$ajp_connector_exists ) {
+
+            # Create <Connector port="8009" protocol="AJP/1.3" xpoweredBy="false"/>
+            my $ajp = $dom->createElement('Connector');
+            $ajp->setAttribute( port           => 8009 );
+            $ajp->setAttribute( protocol       => 'AJP/1.3' );
+            $ajp->setAttribute( xpoweredBy     => "false" );
+            $ajp->setAttribute( secretRequired => "false" );
+
+            # don’t listen on just 127.0.0.1 or you can’t do AJP proxy
+            # this is normally a undesirable but since its being done in a podman container its ok
+            $ajp->setAttribute( address => "0.0.0.0" );
+
+            $dom->findnodes('//Server/Service[@name="Catalina"]')->shift()->addChild($ajp);
+        }
+
+        my $valve = $dom->createElement("Valve");
+        $valve->setAttribute( className      => "org.apache.catalina.valves.ErrorReportValve" );
+        $valve->setAttribute( showReport     => "false" );
+        $valve->setAttribute( showServerInfo => "false" );
+        for my $host ( $dom->findnodes("//Host") ) {
+
+            # hide version exposure: Create a ErrorReportValve w/ showServerInfo and showReport attributes to false
+            $host->addChild($valve);
+
+            # Host – autoDeploy, deployOnStartup, unpackWARs, and deployXML false
+            #   - FWiW, ASF does exploded deploys instead of ^^^
+            $host->setAttribute( autoDeploy      => "false" );
+            $host->setAttribute( deployOnStartup => "false" );
+            $host->setAttribute( deployXML       => "false" );
+            $host->setAttribute( unpackWARs      => "false" );
+        }
+
+        _write_dom( "conf/server.xml" => $dom );
+
+        umask($orig_umask);
+    }
+
+    chdir $curdir or warn "Could not chdir back to “$curdir”: $!\n";
+    print " … done!\n";
+
+    return;
+}
+
+###############
+#### helpers ##
+###############
+
+sub _bail {
+    my ($msg) = @_;
+
+    chomp($msg);
+    warn "$msg\n";
+
+    exit(1);    # there is no return()ing from this lol
+}
+
+sub _write_dom {
+    my ( $path, $dom ) = @_;
+
+    # get nicely indented XML (from http://grantm.github.io/perl-libxml-by-example/dom.html#modifying-the-dom)
+    for my $node ( $dom->findnodes('//text()') ) {
+        $node->parentNode->removeChild($node) unless $node =~ /\S/;
+    }
+
+    return path($path)->spew( $dom->toString(1) );
+}
+
+sub _tomcat101_dir_is_empty_or_apps_only {
+    my ($tomcat101_dir) = @_;
+    my @contents = path($tomcat101_dir)->children;
+    return 1 if !@contents || ( -d "$tomcat101_dir/webapps" && @contents == 1 );
+    return;
+}
+
+1;
