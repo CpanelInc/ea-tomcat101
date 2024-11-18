@@ -24,6 +24,7 @@ unless ( caller() ) {
 sub _get_required {
     my ($http) = @_;
 
+	# change to increment 1 as one was released as 10.1.33 and wasn't a development versions. https://webpros.atlassian.net/browse/ZC-12365
     my $version = ea4_tool::util::get_docker_hub_newest_release( name => "tomcat", namespace => "library", minor => "10.1", increment => 1 );
 
     my $name = "apache-tomcat-$version.tar.gz";
