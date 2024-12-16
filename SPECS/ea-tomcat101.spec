@@ -22,7 +22,7 @@
 Name:    ea-tomcat101
 Vendor:  cPanel, Inc.
 Summary: Tomcat
-Version: 10.1.33
+Version: 10.1.34
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
 %define release_prefix 1
 Release: %{release_prefix}%{?dist}.cpanel
@@ -110,6 +110,9 @@ EOF
 %attr(0644,root,root) /opt/cpanel/ea-tomcat101/pkg-version
 
 %changelog
+* Tue Dec 10 2024 Cory McIntire <cory@cpanel.net> - 10.1.34-1
+- EA-12606: Update ea-tomcat101 from v10.1.33 to v10.1.34
+
 * Mon Nov 18 2024 Cory McIntire <cory@cpanel.net> - 10.1.33-1
 - EA-12555: Update ea-tomcat101 from v10.1.30 to v10.1.33
 - CVE-2024-52316: Apache Tomcat: Authentication bypass when using Jakarta Authentication API
