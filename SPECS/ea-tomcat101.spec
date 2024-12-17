@@ -112,6 +112,8 @@ EOF
 %changelog
 * Tue Dec 10 2024 Cory McIntire <cory@cpanel.net> - 10.1.34-1
 - EA-12606: Update ea-tomcat101 from v10.1.33 to v10.1.34
+- CVE-2024-54677: Apache Tomcat: DoS in examples web application
+- CVE-2024-50379: Apache Tomcat: RCE due to TOCTOU issue in JSP compilation
 
 * Mon Nov 18 2024 Cory McIntire <cory@cpanel.net> - 10.1.33-1
 - EA-12555: Update ea-tomcat101 from v10.1.30 to v10.1.33
