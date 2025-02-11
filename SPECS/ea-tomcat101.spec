@@ -112,6 +112,7 @@ EOF
 %changelog
 * Mon Feb 10 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.35-1
 - EA-12693: Update ea-tomcat101 from v10.1.34 to v10.1.35
+- Add a check to ensure that, if one or more web applications are potentially vulnerable to CVE-2024-56337, the JVM has been configured to protect against the vulnerability and to configure the JVM correctly if not. Where one or more web applications are potentially vulnerable to CVE-2004-56337 and the JVM cannot be correctly configured or it cannot be confirmed that the JVM has been correctly configured, prevent the impacted web applications from starting.
 
 * Tue Dec 10 2024 Cory McIntire <cory@cpanel.net> - 10.1.34-1
 - EA-12606: Update ea-tomcat101 from v10.1.33 to v10.1.34
