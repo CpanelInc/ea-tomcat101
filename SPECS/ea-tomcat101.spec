@@ -22,7 +22,7 @@
 Name:    ea-tomcat101
 Vendor:  cPanel, Inc.
 Summary: Tomcat
-Version: 10.1.34
+Version: 10.1.35
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
 %define release_prefix 1
 Release: %{release_prefix}%{?dist}.cpanel
@@ -110,6 +110,10 @@ EOF
 %attr(0644,root,root) /opt/cpanel/ea-tomcat101/pkg-version
 
 %changelog
+* Mon Feb 10 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.35-1
+- EA-12693: Update ea-tomcat101 from v10.1.34 to v10.1.35
+- Add a check to ensure that, if one or more web applications are potentially vulnerable to CVE-2024-56337, the JVM has been configured to protect against the vulnerability and to configure the JVM correctly if not. Where one or more web applications are potentially vulnerable to CVE-2004-56337 and the JVM cannot be correctly configured or it cannot be confirmed that the JVM has been correctly configured, prevent the impacted web applications from starting.
+
 * Tue Dec 10 2024 Cory McIntire <cory@cpanel.net> - 10.1.34-1
 - EA-12606: Update ea-tomcat101 from v10.1.33 to v10.1.34
 - CVE-2024-54677: Apache Tomcat: DoS in examples web application
