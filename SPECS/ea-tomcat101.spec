@@ -112,6 +112,7 @@ EOF
 %changelog
 * Mon Mar 10 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.39-1
 - EA-12756: Update ea-tomcat101 from v10.1.36 to v10.1.39
+- Improve the checks for exposure to and protection against CVE-2024-56337 so that reflection is not used unless required.
 
 * Wed Feb 19 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.36-1
 - EA-12722: Update ea-tomcat101 from v10.1.35 to v10.1.36
