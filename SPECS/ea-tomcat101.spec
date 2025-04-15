@@ -22,7 +22,7 @@
 Name:    ea-tomcat101
 Vendor:  cPanel, Inc.
 Summary: Tomcat
-Version: 10.1.39
+Version: 10.1.40
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
 %define release_prefix 1
 Release: %{release_prefix}%{?dist}.cpanel
@@ -110,6 +110,9 @@ EOF
 %attr(0644,root,root) /opt/cpanel/ea-tomcat101/pkg-version
 
 %changelog
+* Wed Apr 09 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.40-1
+- EA-12806: Update ea-tomcat101 from v10.1.39 to v10.1.40
+
 * Mon Mar 10 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.39-1
 - EA-12756: Update ea-tomcat101 from v10.1.36 to v10.1.39
 - Improve the checks for exposure to and protection against CVE-2024-56337 so that reflection is not used unless required.
