@@ -112,6 +112,8 @@ EOF
 %changelog
 * Wed Apr 09 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.40-1
 - EA-12806: Update ea-tomcat101 from v10.1.39 to v10.1.40
+- Important: Denial of Service via invalid HTTP priority header CVE-2025-31650
+- Low: Rewrite rule bypass CVE-2025-31651
 
 * Mon Mar 10 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.39-1
 - EA-12756: Update ea-tomcat101 from v10.1.36 to v10.1.39
