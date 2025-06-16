@@ -112,6 +112,10 @@ EOF
 %changelog
 * Tue Jun 10 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.42-1
 - EA-12927: Update ea-tomcat101 from v10.1.41 to v10.1.42
+- [CVE-2025-48976] Allocation of resources for multipart headers with insufficient limits enabled a DoS vulnerability in Apache Commons FileUpload
+- [CVE-2025-48988] Allocation of Resources Without Limits or Throttling vulnerability in Apache Tomcat
+- [CVE-2025-49125] Authentication Bypass Using an Alternate Path or Channel vulnerability in Apache Tomcat
+- [CVE-2025-49124] Untrusted Search Path vulnerability in Apache Tomcat installer for Windows. During installation, the Tomcat installer for Windows used icacls.exe without specifying a full path.
 
 * Tue May 13 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.41-1
 - EA-12865: Update ea-tomcat101 from v10.1.40 to v10.1.41
