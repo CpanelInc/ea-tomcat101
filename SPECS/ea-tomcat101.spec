@@ -22,7 +22,7 @@
 Name:    ea-tomcat101
 Vendor:  cPanel, Inc.
 Summary: Tomcat
-Version: 10.1.41
+Version: 10.1.42
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
 %define release_prefix 1
 Release: %{release_prefix}%{?dist}.cpanel
@@ -110,6 +110,13 @@ EOF
 %attr(0644,root,root) /opt/cpanel/ea-tomcat101/pkg-version
 
 %changelog
+* Tue Jun 10 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.42-1
+- EA-12927: Update ea-tomcat101 from v10.1.41 to v10.1.42
+- [CVE-2025-48976] Allocation of resources for multipart headers with insufficient limits enabled a DoS vulnerability in Apache Commons FileUpload
+- [CVE-2025-48988] Allocation of Resources Without Limits or Throttling vulnerability in Apache Tomcat
+- [CVE-2025-49125] Authentication Bypass Using an Alternate Path or Channel vulnerability in Apache Tomcat
+- [CVE-2025-49124] Untrusted Search Path vulnerability in Apache Tomcat installer for Windows. During installation, the Tomcat installer for Windows used icacls.exe without specifying a full path.
+
 * Tue May 13 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.41-1
 - EA-12865: Update ea-tomcat101 from v10.1.40 to v10.1.41
 
