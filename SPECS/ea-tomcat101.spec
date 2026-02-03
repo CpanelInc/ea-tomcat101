@@ -22,7 +22,7 @@
 Name:    ea-tomcat101
 Vendor:  cPanel, Inc.
 Summary: Tomcat
-Version: 10.1.50
+Version: 10.1.52
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
 %define release_prefix 1
 Release: %{release_prefix}%{?dist}.cpanel
@@ -110,6 +110,9 @@ EOF
 %attr(0644,root,root) /opt/cpanel/ea-tomcat101/pkg-version
 
 %changelog
+* Wed Jan 28 2026 Cory McIntire <cory.mcintire@webpros.com> - 10.1.52-1
+- EA-13328: Update ea-tomcat101 from v10.1.50 to v10.1.52
+
 * Tue Dec 09 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.50-1
 - EA-13285: Update ea-tomcat101 from v10.1.49 to v10.1.50
 
