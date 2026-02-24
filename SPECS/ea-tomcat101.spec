@@ -24,7 +24,7 @@ Vendor:  cPanel, Inc.
 Summary: Tomcat
 Version: 10.1.52
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release: %{release_prefix}%{?dist}.cpanel
 License: Apache License, 2.0
 Group:   System Environment/Daemons
@@ -110,11 +110,17 @@ EOF
 %attr(0644,root,root) /opt/cpanel/ea-tomcat101/pkg-version
 
 %changelog
+* Tue Feb 24 2026 Cory McIntire <cory.mcintire@webpros.com> - 10.1.52-2
+- EA4-248: Update changelog with CVE data.
+
 * Wed Jan 28 2026 Cory McIntire <cory.mcintire@webpros.com> - 10.1.52-1
 - EA-13328: Update ea-tomcat101 from v10.1.50 to v10.1.52
+- Moderate: Incomplete OCSP verification checks CVE-2026-24734
 
 * Tue Dec 09 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.50-1
 - EA-13285: Update ea-tomcat101 from v10.1.49 to v10.1.50
+- Low: Security constraint bypass CVE-2026-24733
+- Moderate: Client certificate verification bypass due to virtual host mapping CVE-2025-66614
 
 * Wed Nov 12 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.49-1
 - EA-13257: Update ea-tomcat101 from v10.1.48 to v10.1.49
@@ -124,18 +130,24 @@ EOF
 
 * Thu Oct 09 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.47-1
 - EA-13187: Update ea-tomcat101 from v10.1.46 to v10.1.47
+- Low: Delayed cleaning of multipart upload temporary files may lead to DoS CVE-2025-61795
 
 * Mon Oct 06 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.46-1
 - EA-13164: Update ea-tomcat101 from v10.1.45 to v10.1.46
 
 * Mon Sep 08 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.45-1
 - EA-13090: Update ea-tomcat101 from v10.1.44 to v10.1.45
+- Low: Console manipulation via escape sequences in log messages CVE-2025-55754
+- Important: Directory traversal via Rewrite Valve with possible remote code execution if PUT is enabled CVE-2025-55752
 
 * Thu Aug 07 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.44-1
 - EA-13066: Update ea-tomcat101 from v10.1.43 to v10.1.44
+- Important: DoS in HTTP/2 due to client triggered stream reset CVE-2025-48989
 
 * Tue Jul 08 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.43-1
 - EA-13004: Update ea-tomcat101 from v10.1.42 to v10.1.43
+- Low: DoS due to overflow in file upload limit CVE-2025-52520
+- Important: DoS via excessive HTTP/2 streams CVE-2025-53506
 
 * Tue Jun 10 2025 Cory McIntire <cory.mcintire@webpros.com> - 10.1.42-1
 - EA-12927: Update ea-tomcat101 from v10.1.41 to v10.1.42
