@@ -112,6 +112,10 @@ EOF
 %changelog
 * Sat Apr 04 2026 EA4 Update Bot <cory.mcintire@webpros.com> - 10.1.54-1
 - EA-13399: Update ea-tomcat101 from v10.1.53 to v10.1.54
+- (CVE-2026-34486) Important: The fix for CVE-2026-29146 allowed the bypass of the EncryptInterceptor
+- (CVE-2026-34500) Moderate: OCSP checks sometimes soft-fail with FFM even when soft-fail is disabled
+- (CVE-2026-34487) Low: Cloud membership for clustering component exposed the Kubernetes bearer token
+- (CVE-2026-34483) Low: Incomplete escaping of JSON access logs
 
 * Tue Mar 24 2026 Cory McIntire <cory.mcintire@webpros.com> - 10.1.53-1
 - EA-13379: Update ea-tomcat101 from v10.1.52 to v10.1.53
