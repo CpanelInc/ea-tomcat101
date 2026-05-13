@@ -112,6 +112,13 @@ EOF
 %changelog
 * Wed May 13 2026 EA4 Update Bot <cory.mcintire@webpros.com> - 10.1.55-1
 - EA-13434: Update ea-tomcat101 from v10.1.54 to v10.1.55
+- (CVE-2026-43515) Moderate: Security constraints not correctly applied
+- (CVE-2026-43512) Moderate: Digest authenticator will authenticate any unknown user
+- (CVE-2026-43514) Low: AJP secret compared in non-constant time
+- (CVE-2026-43513) Low: LockOutRealm treats user names as case-sensitive
+- (CVE-2026-42498) Low: WebSocket authentication header exposure
+- (CVE-2026-41293) Low: HTTP/2 request headers not validated
+- (CVE-2026-41284) Low: Unbounded read in WebDAV LOCK and PROPFIND handling
 
 * Sat Apr 04 2026 EA4 Update Bot <cory.mcintire@webpros.com> - 10.1.54-1
 - EA-13399: Update ea-tomcat101 from v10.1.53 to v10.1.54
