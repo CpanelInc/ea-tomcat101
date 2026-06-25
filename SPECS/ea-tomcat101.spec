@@ -22,7 +22,7 @@
 Name:    ea-tomcat101
 Vendor:  cPanel, Inc.
 Summary: Tomcat
-Version: 10.1.55
+Version: 10.1.56
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
 %define release_prefix 1
 Release: %{release_prefix}%{?dist}.cpanel
@@ -110,6 +110,9 @@ EOF
 %attr(0644,root,root) /opt/cpanel/ea-tomcat101/pkg-version
 
 %changelog
+* Thu Jun 25 2026 EA4 Update Bot <cory.mcintire@webpros.com> - 10.1.56-1
+- EA-13475: Update ea-tomcat101 from v10.1.55 to v10.1.56
+
 * Wed May 13 2026 EA4 Update Bot <cory.mcintire@webpros.com> - 10.1.55-1
 - EA-13434: Update ea-tomcat101 from v10.1.54 to v10.1.55
 - (CVE-2026-43515) Moderate: Security constraints not correctly applied
