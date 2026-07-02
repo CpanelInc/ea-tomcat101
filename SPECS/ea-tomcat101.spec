@@ -112,6 +112,12 @@ EOF
 %changelog
 * Thu Jun 25 2026 EA4 Update Bot <cory.mcintire@webpros.com> - 10.1.56-1
 - EA-13475: Update ea-tomcat101 from v10.1.55 to v10.1.56
+- (CVE-2026-55956) Moderate: Security constraints for default servlet ignored method
+- (CVE-2026-55955) Low: EncryptInterceptor not protected against replay attacks
+- (CVE-2026-55276) Low: Logged effective web.xml is incomplete
+- (CVE-2026-53434) Low: Invalid CRL configuration doesn't trigger failure for FFM Connector
+- (CVE-2026-53404) Low: Bad ornext processing in RewriteValve
+- (CVE-2026-50229) Low: XSS in number guess example
 
 * Wed May 13 2026 EA4 Update Bot <cory.mcintire@webpros.com> - 10.1.55-1
 - EA-13434: Update ea-tomcat101 from v10.1.54 to v10.1.55
