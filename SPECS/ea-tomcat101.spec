@@ -112,6 +112,7 @@ EOF
 %changelog
 * Sat Aug 22 2026 EA4 Update Bot <cory.mcintire@webpros.com> - 10.1.59-1
 - EA-13537: Update ea-tomcat101 from v10.1.57 to v10.1.59
+- (CVE-2026-66299) Low: DoS in WebSocket chat example
 
 * Thu Jul 09 2026 EA4 Update Bot <cory.mcintire@webpros.com> - 10.1.57-1
 - EA-13495: Update ea-tomcat101 from v10.1.56 to v10.1.57
