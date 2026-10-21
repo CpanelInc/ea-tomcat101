@@ -112,6 +112,12 @@ EOF
 %changelog
 * Tue Oct 13 2026 EA4 Update Bot <cory.mcintire@webpros.com> - 10.1.61-1
 - EA-13592: Update ea-tomcat101 from v10.1.60 to v10.1.61
+- (CVE-2026-101356) Important: HTTP/2 request/response mix-up after error during async processing
+- (CVE-2026-101296) Important: JNDIRealm bind credential validation fails open for non-GSSAPI SASL mechanisms
+- (CVE-2026-93446) Low: Possible TLS 1.3 connection failures
+- (CVE-2026-88041) Low: HTTP/2 trailer header cross-contamination
+- (CVE-2026-74049) Low: Jasper JSTL c:redirect omits page abort (SKIP_PAGE)
+- (CVE-2026-74048) Low: OpenSSL-FFM FIPS failure does not prevent start-up
 
 * Wed Sep 16 2026 EA4 Update Bot <cory.mcintire@webpros.com> - 10.1.60-1
 - EA-13558: Update ea-tomcat101 from v10.1.59 to v10.1.60
